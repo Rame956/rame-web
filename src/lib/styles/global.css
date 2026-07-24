@@ -1,0 +1,28 @@
+@import "./variables.css";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    background: var(--color-bg);
+    color: var(--text);
+
+    font-family:
+        Inter,
+        system-ui,
+        sans-serif;
+}
+
+.tui {
+    height: 100%;
+
+    background: #101012;
+    color: var(--text);
+
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    overflow: auto;
+}

@@ -130,11 +130,22 @@
 </script>
 
 <svelte:head>
-   	<title>Rame.WTF</title>
-   	<meta
-  		name="description"
-  		content="Da"
-   	/>
+	<title>Rame.wtf</title>
+
+	<meta
+		name="description"
+		content="Личный сайт Rame"
+	/>
+
+	<meta property="og:title" content="Rame.WTF" />
+	<meta
+		property="og:description"
+		content="Личный сайт Rame"
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://rame.wtf" />
+
+	<meta name="theme-color" content="#2b1418" />
 </svelte:head>
 
 <!-- <BootScreen /> -->

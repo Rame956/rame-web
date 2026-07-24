@@ -1,42 +1,38 @@
-# sv
+# Rame.wtf
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A personal website built with SvelteKit.
 
-## Creating a project
+Originally started as a fun side project, it has grown into a desktop-inspired personal website where I showcase my projects, experiments and links (Someday, when there are projects I can be proud of lol).
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Features
 
-```sh
-# create a new project
-npx sv create my-app
-```
+- Desktop-inspired interface
+- Window management
+- Application launcher
+- Ramfetch
+- Markdown viewer
+- Links page
 
-To recreate this project with the same configuration:
+## Tech Stack
 
-```sh
-# recreate this project
-npx sv@0.16.4 create --template minimal --types ts --add prettier eslint --install npm rame-site
-```
+- TypeScript
+- Svelte 5
+- SvelteKit
+- Vite
 
-## Developing
+## Development
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+## Build
 
-To create a production version of your app:
-
-```sh
+```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+## License
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+MIT

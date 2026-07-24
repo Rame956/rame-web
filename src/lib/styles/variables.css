@@ -1,0 +1,21 @@
+:root {
+    --color-bg: #241B20;
+
+    --color-surface: #30252B;
+    --color-surface-hover: #3A2D34;
+    --color-surface-active: #202020;
+    --color-window-bg: rgba(16, 16, 16, 0.9);
+
+    --color-accent: #ef233c;
+    --color-accent-hover: #ff344e;
+    --color-accent-muted: rgba(239, 35, 60, 0.18);
+
+    --color-text-primary: #f1f1f1;
+    --color-text: #d8d8d8;
+    --color-text-muted: #777777;
+
+    --color-border: #2b2b2b;
+    --color-border-active: #ef233c;
+
+    --color-warning: #f4b942;
+}

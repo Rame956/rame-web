@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 
+      let {
+              onComplete
+          }: {
+              onComplete: () => void;
+          } = $props();
+
 	type BootPhase = 'logs' | 'blackout' | 'plymouth' | 'finished';
 	let phase = $state<BootPhase>('logs');
 	let visibleLines = $state<string[]>([]);
@@ -35,6 +41,7 @@
 		await sleep(5500);
 
 		phase = 'finished';
+		onComplete();
 	});
 
 </script>

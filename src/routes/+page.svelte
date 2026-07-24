@@ -1,11 +1,29 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import type { Component } from 'svelte';
-    import Applauncher from "$lib/components/applauncher.svelte";
 
-   	import Window from '$lib/components/window.svelte';
+    import BootScreen from '$lib/components/bootscreen.svelte';
+    import Applauncher from '$lib/components/applauncher.svelte';
+    import Window from '$lib/components/window.svelte';
     import Panel from '$lib/components/panel.svelte';
+
     import type { app } from '$lib/apps/appslist';
     import { apps } from '$lib/apps/appslist';
+
+    let isBooting = $state(false);
+    let isInitialized = $state(false);
+
+    onMount(() => {
+        const hasBooted = sessionStorage.getItem('booted') === 'true';
+
+        isBooting = !hasBooted;
+        isInitialized = true;
+    });
+
+    function onBootComplete() {
+        sessionStorage.setItem('booted', 'true');
+        isBooting = false;
+    }
 
     type WindowData = {
             id: number;
@@ -148,17 +166,36 @@
 	<meta name="theme-color" content="#2b1418" />
 </svelte:head>
 
-<!-- <BootScreen /> -->
+{#if isInitialized}
+    {#if isBooting}
+        <BootScreen onComplete={onBootComplete} />
+    {:else}
+        <main>
+            <Panel
+                main_panel_title={windows.find(
+                    (window) => window.id === focusedWindowId
+                )?.title}
+                onLauncherClick={onLauncherClick}
+            />
 
-<main>
-    <Panel main_panel_title={windows.find((window) => window.id === focusedWindowId)?.title} onLauncherClick={onLauncherClick}/>
-    <Applauncher onOpen={onOpen} isVisible={isLauncherVisible}/>
-    <div class="window-environment">
-        {#each windows as window (window.id)}
-            <Window windowParameters={window} onClose={() => onClose(window.id)} onFocus={() => onFocus(window.id)} isFocused={focusedWindowId === window.id}/>
-        {/each}
-    </div>
-</main>
+            <Applauncher
+                onOpen={onOpen}
+                isVisible={isLauncherVisible}
+            />
+
+            <div class="window-environment">
+                {#each windows as window (window.id)}
+                    <Window
+                        windowParameters={window}
+                        onClose={() => onClose(window.id)}
+                        onFocus={() => onFocus(window.id)}
+                        isFocused={focusedWindowId === window.id}
+                    />
+                {/each}
+            </div>
+        </main>
+    {/if}
+{/if}
 
 <style>
    	main {

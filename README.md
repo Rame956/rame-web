@@ -13,6 +13,12 @@ Originally started as a fun side project, it has grown into a desktop-inspired p
 - Markdown viewer
 - Links page
 
+## TODO:
+- Window manager improvments
+- Mobile version
+- Terminal
+- More apps
+
 ## Tech Stack
 
 - TypeScript

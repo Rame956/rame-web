@@ -4,21 +4,23 @@ import LinksFetch from '$lib/apps/linksfetch.svelte';
 import welcomeFile from '$lib/files/text_files/Welcome.md?raw';
 import type { Component } from 'svelte';
 
-export type app = {
+export type App = {
     id: string;
     name: string;
     title: string;
+    description: string;
     component: Component<any>;
     width: number;
     height: number;
     props?: Record<string, unknown>;
 };
 
-export const apps: app[] = [
+export const apps: App[] = [
     {
         id: "ramefetch",
         name: "RameFetch",
         title: "~: ramefetch",
+        description: 'Информация обо мне',
         component: RameFetch,
         width: 800,
         height: 450
@@ -28,6 +30,7 @@ export const apps: app[] = [
         id: "welcome",
         name: "Welcome",
         title: "mdview: ~/Welcome.md",
+        description: 'Приветственный файл',
         component: mdview,
         width: 900,
         height: 490,
@@ -44,6 +47,7 @@ export const apps: app[] = [
         id: "links",
         name: "LinksFetch",
         title: "~: linksfetch",
+        description: 'Разные ссылки и контакты',
         component: LinksFetch,
         width: 800,
         height: 500

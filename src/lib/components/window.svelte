@@ -21,6 +21,17 @@
       contentProps?: Record<string, unknown>;
   };
 
+  const resizeSides = [
+      'right',
+      'left',
+      'top',
+      'bottom',
+      'top-left',
+      'top-right',
+      'bottom-left',
+      'bottom-right'
+  ]
+
   let isDragging: boolean = $state(false);
   let isResizing: boolean = $state(false);
 
@@ -150,8 +161,15 @@
 
   function handleDragging(event: PointerEvent){
     if(isDragging){
-     windowParameters.x = event.clientX - offsetX;
-     windowParameters.y = event.clientY - offsetY;
+      windowParameters.x = Math.min(
+          window.innerWidth - windowParameters.width - 1,
+          Math.max(0, event.clientX - offsetX)
+      );
+
+      windowParameters.y = Math.min(
+          window.innerHeight - windowParameters.height - 1,
+          Math.max(40, event.clientY - offsetY)
+      );
     }
   }
 
@@ -169,7 +187,7 @@
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
-	class="window"
+    class="window" class:focused={isFocused}
 	style:width={`${windowParameters.width}px`}
 	style:height={`${windowParameters.height}px`}
 	style:left={`${windowParameters.x}px`}
@@ -177,67 +195,23 @@
 	style:z-index={windowParameters.zIndex}
 	onpointerdown={onFocus}
 >
-    <div
-	class="resize-handle resize-handle-right"
-	onpointerdown={handleResizeStart}
-	onpointermove={handleResizing}
-	onpointerup={handleResizeEnd}
-    />
-
-    <div
-	class="resize-handle resize-handle-left"
-	onpointerdown={handleResizeStart}
-	onpointermove={handleResizing}
-	onpointerup={handleResizeEnd}
-    />
-
-    <div
-	class="resize-handle resize-handle-bottom"
-	onpointerdown={handleResizeStart}
-	onpointermove={handleResizing}
-	onpointerup={handleResizeEnd}
-    />
-
-    <div
-	class="resize-handle resize-handle-top"
-	onpointerdown={handleResizeStart}
-	onpointermove={handleResizing}
-	onpointerup={handleResizeEnd}
-    />
-
-    <div
-	class="resize-handle resize-handle-bottomright"
-	onpointerdown={handleResizeStart}
-	onpointermove={handleResizing}
-	onpointerup={handleResizeEnd}
-    />
-
-    <div
-	class="resize-handle resize-handle-topright"
-	onpointerdown={handleResizeStart}
-	onpointermove={handleResizing}
-	onpointerup={handleResizeEnd}
-    />
-
-    <div
-	class="resize-handle resize-handle-bottomleft"
-	onpointerdown={handleResizeStart}
-	onpointermove={handleResizing}
-	onpointerup={handleResizeEnd}
-    />
-
-    <div
-	class="resize-handle resize-handle-topleft"
-	onpointerdown={handleResizeStart}
-	onpointermove={handleResizing}
-	onpointerup={handleResizeEnd}
-    />
-
+    {#each resizeSides as side (side)}
+        <div
+       	class="resize-handle resize-handle-{side}"
+       	onpointerdown={handleResizeStart}
+       	onpointermove={handleResizing}
+       	onpointerup={handleResizeEnd}
+        onpointercancel={handleResizeEnd}
+        onlostpointercapture={handleResizeEnd}
+        ></div>
+    {/each}
 
     <div class="window-header"
         onpointerdown={handleDraggingStart}
         onpointerup={handleDraggingEnd}
         onpointermove={handleDragging}
+        onpointercancel={handleDraggingEnd}
+        onlostpointercapture={handleDraggingEnd}
         style:cursor={isDragging ? 'move' : ''}
         >
         <div class="window-title">{windowParameters.title}</div>
@@ -275,8 +249,6 @@
 	}
 
 	.window.focused {
-        border-color: var(--color-accent);
-
         box-shadow:
             0 0 0 1px var(--color-accent-muted),
             0 12px 36px rgba(0, 0, 0, 0.65);
@@ -380,9 +352,6 @@
         border-bottom: 1px solid var(--border);
 	}
 
-	.window.focused .window-header {
-        color: var(--color-accent);
-	}
 
 	.content-placeholder{
 	    background-color: #FFFFFF;

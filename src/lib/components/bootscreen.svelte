@@ -2,12 +2,14 @@
 	import { onMount } from "svelte";
 
       let {
-              onComplete
+              onComplete,
+              isUserOnMobile
           }: {
               onComplete: () => void;
+              isUserOnMobile: boolean;
           } = $props();
 
-	type BootPhase = 'logs' | 'blackout' | 'plymouth' | 'finished';
+	type BootPhase = 'logs' | 'blackout' | 'plymouth' | 'finished' | 'error';
 	let phase = $state<BootPhase>('logs');
 	let visibleLines = $state<string[]>([]);
 
@@ -38,9 +40,13 @@
 
 		phase = 'plymouth';
 
-		await sleep(5500);
-
-		phase = 'finished';
+		if(isUserOnMobile){
+		  await sleep(2500);
+		  phase = 'error'
+		}else{
+		  await sleep(5500);
+		  phase = 'finished';
+		}
 		onComplete();
 	});
 
@@ -50,6 +56,7 @@
 {#if phase !== 'finished'}
 	<div
 		class:plymouth={phase === 'plymouth'}
+		class:plymouth_error={phase === 'error'}
 		class:blackout={phase === 'blackout'}
 		class="boot-screen"
 	>
@@ -77,6 +84,17 @@
 
 				<div class="status">Starting desktop environment</div>
 			</div>
+		{:else if phase === 'error'}
+    		<div class="plymouth-screen">
+    			<div class="logo">RAME<span>.WTF</span></div>
+
+    			<div class="loader-error">
+       				Прости, но нет Т-Т
+    			</div>
+
+    			<div class="status-error">Сайт пока что не рассчитан под смартфоны</div>
+                <div class="status-error">Зайди с ПК</div>
+    		</div>
 		{/if}
 	</div>
 {/if}
@@ -151,6 +169,12 @@
 		padding: 0;
 	}
 
+	.plymouth_error {
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+	}
+
 	.plymouth-screen {
 		display: flex;
 		flex-direction: column;
@@ -204,6 +228,19 @@
 
 	.status {
 		margin-top: 24px;
+		color: #777;
+		font-size: 12px;
+		letter-spacing: 1px;
+	}
+
+	.loader-error {
+		display: flex;
+		gap: 10px;
+		height: 14px;
+		margin-bottom: 24px;
+	}
+
+	.status-error {
 		color: #777;
 		font-size: 12px;
 		letter-spacing: 1px;

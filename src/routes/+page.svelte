@@ -7,85 +7,165 @@
     import Window from '$lib/components/window.svelte';
     import Panel from '$lib/components/panel.svelte';
 
-    import type { app } from '$lib/apps/appslist';
+    import type { App } from '$lib/apps/appslist';
     import { apps } from '$lib/apps/appslist';
+
+    type WindowData = {
+        id: number;
+        appId: string;
+        title: string;
+
+        width: number;
+        height: number;
+
+        x: number;
+        y: number;
+
+        zIndex: number;
+
+        windowContent: Component<any>;
+        contentProps?: Record<string, unknown>;
+    };
+
+    const PANEL_HEIGHT = 40;
+    const VIEWPORT_PADDING = 16;
+    const WINDOW_OFFSET = 30;
 
     let isBooting = $state(false);
     let isInitialized = $state(false);
+    let isLauncherVisible = $state(false);
+    let isUserOnMobile = $state(false);
 
-    onMount(() => {
-        const hasBooted = sessionStorage.getItem('booted') === 'true';
+    let windows = $state<WindowData[]>([]);
 
-        isBooting = !hasBooted;
-        isInitialized = true;
-    });
+    let focusedWindowId = $state<number | null>(null);
+    let nextZIndex = $state(1);
+    let nextWindowId = $state(1);
 
-    function onBootComplete() {
-        sessionStorage.setItem('booted', 'true');
-        isBooting = false;
-    }
-
-    type WindowData = {
-            id: number;
-            appId: string;
-            title: string;
-
-            width: number;
-            height: number;
-
-            x: number;
-            y: number;
-
-            zIndex: number;
-
-            windowContent: Component<any>;
-            contentProps?: Record<string, unknown>;
-        };
-
-
-   	let focusedWindowId = $state<number | null>(2);
-    let nextZIndex = $state(3);
-    let nextWindowId = $state(3);
-
-    let isLauncherVisible: boolean = $state(false);
-
-
-   	const ramefetchApp = apps.find((app) => app.id === 'ramefetch');
+    const ramefetchApp = apps.find((app) => app.id === 'ramefetch');
     const welcomeApp = apps.find((app) => app.id === 'welcome');
 
     if (!ramefetchApp || !welcomeApp) {
         throw new Error('Initial applications are missing');
     }
 
-    let windows = $state<WindowData[]>([
-        {
-            id: 1,
-            appId: ramefetchApp.id,
-            title: ramefetchApp.title,
-            width: ramefetchApp.width,
-            height: ramefetchApp.height,
-            x: 800,
-            y: 550,
-            zIndex: 2,
-            windowContent: ramefetchApp.component,
-            contentProps: ramefetchApp.props
-        },
-        {
-            id: 2,
-            appId: welcomeApp.id,
-            title: welcomeApp.title,
-            width: welcomeApp.width,
-            height: welcomeApp.height,
-            x: 70,
-            y: 45,
-            zIndex: 3,
-            windowContent: welcomeApp.component,
-            contentProps: welcomeApp.props
+    function calculateWindowSize(app: App) {
+        const availableWidth =
+            window.innerWidth - VIEWPORT_PADDING * 2;
+
+        const availableHeight =
+            window.innerHeight - PANEL_HEIGHT - VIEWPORT_PADDING * 2;
+
+        return {
+            width: Math.min(app.width, availableWidth),
+            height: Math.min(app.height, availableHeight)
+        };
+    }
+
+    function calculateWindowPosition(
+        width: number,
+        height: number,
+        offset = 0
+    ) {
+        const centeredX = (window.innerWidth - width) / 2;
+        const centeredY =
+            PANEL_HEIGHT +
+            (window.innerHeight - PANEL_HEIGHT - height) / 2;
+
+        const maxX = Math.max(
+            VIEWPORT_PADDING,
+            window.innerWidth - width - VIEWPORT_PADDING
+        );
+
+        const maxY = Math.max(
+            PANEL_HEIGHT + VIEWPORT_PADDING,
+            window.innerHeight - height - VIEWPORT_PADDING
+        );
+
+        return {
+            x: Math.min(
+                maxX,
+                Math.max(VIEWPORT_PADDING, centeredX + offset)
+            ),
+            y: Math.min(
+                maxY,
+                Math.max(
+                    PANEL_HEIGHT + VIEWPORT_PADDING,
+                    centeredY + offset
+                )
+            )
+        };
+    }
+
+    function createWindow(
+        app: App,
+        options: {
+            offset?: number;
+        } = {}
+    ): WindowData {
+        const id = nextWindowId++;
+        const zIndex = ++nextZIndex;
+
+        const { width, height } = calculateWindowSize(app);
+        const { x, y } = calculateWindowPosition(
+            width,
+            height,
+            options.offset ?? 0
+        );
+
+        return {
+            id,
+            appId: app.id,
+            title: app.title,
+            width,
+            height,
+            x,
+            y,
+            zIndex,
+            windowContent: app.component,
+            contentProps: app.props
+        };
+    }
+
+    onMount(() => {
+        const mediaQuery = window.matchMedia('(max-width: 900px)');
+
+        function updateMobileState() {
+            isUserOnMobile = mediaQuery.matches;
         }
-    ]);
 
+        updateMobileState();
+        mediaQuery.addEventListener('change', updateMobileState);
 
-   	function onClose(id: number) {
+        const hasBooted = sessionStorage.getItem('booted') === 'true';
+
+        const ramefetchWindow = createWindow(ramefetchApp, {
+            offset: 400
+        });
+
+        const welcomeWindow = createWindow(welcomeApp, {
+            offset: -400
+        });
+
+        windows = [ramefetchWindow, welcomeWindow];
+        focusedWindowId = welcomeWindow.id;
+
+        isBooting = !hasBooted;
+        isInitialized = true;
+
+        return () => {
+            mediaQuery.removeEventListener('change', updateMobileState);
+        };
+    });
+
+    function onBootComplete() {
+        sessionStorage.setItem('booted', 'true');
+        if(!isUserOnMobile){
+          isBooting = false;
+        }
+    }
+
+    function onClose(id: number) {
         windows = windows.filter((window) => window.id !== id);
 
         if (focusedWindowId !== id) {
@@ -99,50 +179,36 @@
         focusedWindowId = topWindow?.id ?? null;
     }
 
-   	function onFocus(id: number) {
+    function onFocus(id: number) {
         if (focusedWindowId === id) {
             return;
         }
 
-        const targetWindow = windows.find((window) => window.id === id);
+        const targetWindow = windows.find(
+            (window) => window.id === id
+        );
 
         if (!targetWindow) {
             return;
         }
 
-        nextZIndex += 1;
-        targetWindow.zIndex = nextZIndex;
+        targetWindow.zIndex = ++nextZIndex;
         focusedWindowId = id;
     }
 
-    let onLauncherClick = () => {isLauncherVisible = !isLauncherVisible};
+    function onLauncherClick() {
+        isLauncherVisible = !isLauncherVisible;
+    }
 
-    function onOpen(app: app) {
-        nextZIndex += 1;
+    function onOpen(app: App) {
+        const offset = windows.length * WINDOW_OFFSET;
 
-        const id = nextWindowId;
-        nextWindowId += 1;
-
-        const newWindow: WindowData = {
-            id,
-            appId: app.id,
-            title: app.title,
-
-            width: app.width,
-            height: app.height,
-
-            x: 120 + windows.length * 30,
-            y: 100 + windows.length * 30,
-
-            zIndex: nextZIndex,
-
-            windowContent: app.component,
-            contentProps: app.props
-        };
+        const newWindow = createWindow(app, {
+            offset
+        });
 
         windows = [...windows, newWindow];
-
-        focusedWindowId = id;
+        focusedWindowId = newWindow.id;
         isLauncherVisible = false;
     }
 </script>
@@ -168,7 +234,7 @@
 
 {#if isInitialized}
     {#if isBooting}
-        <BootScreen onComplete={onBootComplete} />
+        <BootScreen onComplete={onBootComplete} isUserOnMobile={isUserOnMobile}/>
     {:else}
         <main>
             <Panel
@@ -181,6 +247,7 @@
             <Applauncher
                 onOpen={onOpen}
                 isVisible={isLauncherVisible}
+                onOuterLauncherClick={onLauncherClick}
             />
 
             <div class="window-environment">
@@ -201,5 +268,6 @@
    	main {
   		width: min(960px, calc(100% - 40px));
   		margin: 0 auto;
+        overflow: hidden;
    	}
 </style>

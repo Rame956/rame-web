@@ -219,8 +219,6 @@
         {#if windowParameters.windowContent}
             {@const Content = windowParameters.windowContent}
             <Content {...windowParameters.contentProps}/>
-        {:else}
-            {@render placeholder()}
         {/if}
     </div>
 </div>

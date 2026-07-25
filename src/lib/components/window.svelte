@@ -1,6 +1,5 @@
 <script lang="ts">
 
-  import type { Snippet } from 'svelte';
   import type { Component } from 'svelte';
 
   let { windowParameters, onClose, onFocus, isFocused}: { windowParameters: WindowParameters,  onClose: () => void, onFocus: () => void, isFocused: boolean} = $props();
@@ -178,12 +177,6 @@
   let handleDraggingEnd = (event: PointerEvent) => {isDragging = false; const header = event.currentTarget as HTMLElement; header.releasePointerCapture(event.pointerId);}
 
 </script>
-
-{#snippet placeholder()}
-    <div class="content-placeholder">
-        <p>{isFocused ? 'Да':'Нет'}</p>
-    </div>
-{/snippet}
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div

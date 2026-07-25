@@ -159,9 +159,9 @@
     });
 
     function onBootComplete() {
-        sessionStorage.setItem('booted', 'true');
         if(!isUserOnMobile){
           isBooting = false;
+          sessionStorage.setItem('booted', 'true');
         }
     }
 
@@ -236,7 +236,7 @@
 	<meta property="og:locale" content="ru_RU" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Rame.wtf" />
-	<meta name="twitter:description" content="..." />
+	<meta name="twitter:description" content="Персональный desktop-сайт разработчика Rame: проекты, эксперименты, ссылки и интерактивные приложения." />
 	<!-- <meta name="twitter:image" content="..." /> -->
 </svelte:head>
 

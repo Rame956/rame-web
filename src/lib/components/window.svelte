@@ -26,10 +26,10 @@
       'left',
       'top',
       'bottom',
-      'top-left',
-      'top-right',
-      'bottom-left',
-      'bottom-right'
+      'topleft',
+      'topright',
+      'bottomleft',
+      'bottomright'
   ]
 
   let isDragging: boolean = $state(false);

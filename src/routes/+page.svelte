@@ -218,18 +218,26 @@
 
 	<meta
 		name="description"
-		content="Личный сайт Rame"
+		content="Персональный desktop-сайт разработчика Rame: проекты, эксперименты, ссылки и интерактивные приложения."
 	/>
 
 	<meta property="og:title" content="Rame.WTF" />
 	<meta
 		property="og:description"
-		content="Личный сайт Rame"
+		content="Персональный desktop-сайт разработчика Rame: проекты, эксперименты, ссылки и интерактивные приложения."
 	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://rame.wtf" />
 
 	<meta name="theme-color" content="#2b1418" />
+
+	<link rel="canonical" href="https://rame.wtf/" />
+	<!-- <meta property="og:image" content="https://rame.wtf/og-image.png" /> -->
+	<meta property="og:locale" content="ru_RU" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Rame.wtf" />
+	<meta name="twitter:description" content="..." />
+	<!-- <meta name="twitter:image" content="..." /> -->
 </svelte:head>
 
 {#if isInitialized}

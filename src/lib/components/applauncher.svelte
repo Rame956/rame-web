@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { apps, type app } from "$lib/apps/appslist";
+	import { apps, type App } from "$lib/apps/appslist";
 
 
-	let { onOpen, isVisible, onOuterLauncherClick }: { onOpen: (app: app) => void, isVisible: boolean, onOuterLauncherClick: () => void } = $props();
+	let { onOpen, isVisible, onOuterLauncherClick }: { onOpen: (app: App) => void, isVisible: boolean, onOuterLauncherClick: () => void } = $props();
 
 </script>
 

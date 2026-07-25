@@ -91,6 +91,9 @@
       return;
     }
 
+    const maxWidth = resizeStartWindowX + resizeStartWidth;
+    const maxHeight = resizeStartWindowY + resizeStartHeight;
+
     const deltaX = event.clientX - resizeStartX;
     const deltaY = event.clientY - resizeStartY;
 
@@ -104,54 +107,72 @@
       case 'right':
         windowParameters.width = Math.max(
             300,
-            resizeStartWidth + deltaX
+            Math.min(window.innerWidth - windowParameters.x, resizeStartWidth + deltaX)
         );
         break;
       case 'left':
-        windowParameters.width = resizeStartWidth - limitedDeltaX;
-        windowParameters.x = resizeStartWindowX + limitedDeltaX;
+        windowParameters.width = Math.max(
+            300,
+            Math.min(maxWidth, resizeStartWidth - limitedDeltaX)
+        );
+        windowParameters.x = Math.max(0, resizeStartWindowX + limitedDeltaX);
         break;
       case 'bottom':
         windowParameters.height = Math.max(
             300,
-            resizeStartHeight + deltaY
+            Math.min(window.innerHeight - windowParameters.y, resizeStartHeight + deltaY)
         );
         break;
       case 'top':
-        windowParameters.height = resizeStartHeight - limitedDeltaY;
-        windowParameters.y = resizeStartWindowY + limitedDeltaY;
+        windowParameters.height = Math.max(
+            300,
+            Math.min(maxHeight-42, resizeStartHeight - limitedDeltaY)
+        );
+        windowParameters.y = Math.max(42, resizeStartWindowY + limitedDeltaY);
         break;
       case 'bottomright':
         windowParameters.width = Math.max(
             300,
-            resizeStartWidth + deltaX
+            Math.min(window.innerWidth - windowParameters.x, resizeStartWidth + deltaX)
         );
         windowParameters.height = Math.max(
             300,
-            resizeStartHeight + deltaY
+            Math.min(window.innerHeight - windowParameters.y, resizeStartHeight + deltaY)
         );
         break;
       case 'bottomleft':
-        windowParameters.width = resizeStartWidth - limitedDeltaX;
-        windowParameters.x = resizeStartWindowX + limitedDeltaX;
+        windowParameters.width = Math.max(
+            300,
+            Math.min(maxWidth, resizeStartWidth - limitedDeltaX)
+        );
+        windowParameters.x = Math.max(0, resizeStartWindowX + limitedDeltaX);
         windowParameters.height = Math.max(
             300,
-            resizeStartHeight + deltaY
+            Math.min(window.innerHeight - windowParameters.y, resizeStartHeight + deltaY)
         );
         break;
       case 'topleft':
-        windowParameters.width = resizeStartWidth - limitedDeltaX;
-        windowParameters.x = resizeStartWindowX + limitedDeltaX;
-        windowParameters.height = resizeStartHeight - limitedDeltaY;
-        windowParameters.y = resizeStartWindowY + limitedDeltaY;
+        windowParameters.width = Math.max(
+            300,
+            Math.min(maxWidth, resizeStartWidth - limitedDeltaX)
+        );
+        windowParameters.x = Math.max(0, resizeStartWindowX + limitedDeltaX);
+        windowParameters.height = Math.max(
+            300,
+            Math.min(maxHeight-42, resizeStartHeight - limitedDeltaY)
+        );
+        windowParameters.y = Math.max(42, resizeStartWindowY + limitedDeltaY);
         break;
       case 'topright':
       windowParameters.width = Math.max(
           300,
-          resizeStartWidth + deltaX
+          Math.min(window.innerWidth - windowParameters.x, resizeStartWidth + deltaX)
       );
-      windowParameters.height = resizeStartHeight - limitedDeltaY;
-      windowParameters.y = resizeStartWindowY + limitedDeltaY;
+      windowParameters.height = Math.max(
+          300,
+          Math.min(maxHeight-42, resizeStartHeight - limitedDeltaY)
+      );
+      windowParameters.y = Math.max(42, resizeStartWindowY + limitedDeltaY);
         break;
     }
 
@@ -161,12 +182,12 @@
   function handleDragging(event: PointerEvent){
     if(isDragging){
       windowParameters.x = Math.min(
-          window.innerWidth - windowParameters.width - 1,
-          Math.max(0, event.clientX - offsetX)
+          window.innerWidth - windowParameters.width - 10,
+          Math.max(10, event.clientX - offsetX)
       );
 
       windowParameters.y = Math.min(
-          window.innerHeight - windowParameters.height - 1,
+          window.innerHeight - windowParameters.height - 10,
           Math.max(40, event.clientY - offsetY)
       );
     }
@@ -341,6 +362,8 @@
         color: var(--text);
 
         border-bottom: 1px solid var(--border);
+
+        user-select: none;
 	}
 
 

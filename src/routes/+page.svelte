@@ -232,7 +232,7 @@
 	<meta name="theme-color" content="#2b1418" />
 
 	<link rel="canonical" href="https://rame.wtf/" />
-	<!-- <meta property="og:image" content="https://rame.wtf/og-image.png" /> -->
+	<meta property="og:image" content="https://rame.wtf/og-image.png" />
 	<meta property="og:locale" content="ru_RU" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Rame.wtf" />

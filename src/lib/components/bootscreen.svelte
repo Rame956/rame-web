@@ -14,12 +14,12 @@
 	let visibleLines = $state<string[]>([]);
 
 	const bootLines = [
-			'[  OK  ] Mounted /projects.',
-			'[  OK  ] Mounted /memes.',
-			'[  OK  ] Started docker.service.',
-			'[  OK  ] Loaded monster_energy module.',
-			'[  OK  ] Connected to rame.wtf.',
-			'[  OK  ] Started graphical interface.'
+			' Mounted /projects.',
+			' Mounted /memes.',
+			' Started docker.service.',
+			' Loaded monster_energy module.',
+			' Connected to rame.wtf.',
+			' Started graphical interface.'
 		];
 
 	const sleep = (millsec: number) =>
@@ -66,7 +66,8 @@
 
 				{#each visibleLines as line (line)}
 					<div class="boot-line">
-						{line}
+					    <div class="line-status">[  OK  ] </div>
+						<div class="line-process">{line}</div>
 					</div>
 				{/each}
 			</div>
@@ -120,36 +121,15 @@
 		font-size: 15px;
 	}
 
-	.os-logs {
-		width: 100%;
-	}
-
-	.os-title {
-		margin-bottom: 20px;
-		color: #ef233c;
-	}
-
 	.boot-line {
 		margin-bottom: 7px;
+		display: flex;
+		gap: 8px;
 		animation: line-appear 100ms linear;
 	}
 
-	.boot-line::first-letter {
-		color: #ef233c;
-	}
-
-	.warning {
-		color: #f4b942;
-	}
-
-	.cursor {
-		display: inline-block;
-		width: 8px;
-		height: 16px;
-		margin-top: 8px;
-
-		background: #ef233c;
-		animation: blink 700ms steps(1) infinite;
+	.line-status{
+        color: #ef233c;
 	}
 
 	.boot-screen {
@@ -290,7 +270,6 @@
 	@media (prefers-reduced-motion: reduce) {
 		.boot-screen,
 		.boot-line,
-		.cursor,
 		.loader span {
 			animation: none;
 		}

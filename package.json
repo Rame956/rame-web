@@ -13,9 +13,9 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test",
-    "ci": "npm run check && npm run lint && npm run test && npm run build"
+		"test:watch": "vitest",
+		"test:e2e": "playwright test",
+		"ci": "npm run check && npm run lint && npm run test && npm run build"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
@@ -38,6 +38,8 @@
 		"vite": "^8.0.16"
 	},
 	"dependencies": {
+		"@iconify-json/material-symbols": "^1.2.87",
+		"@iconify/svelte": "^5.2.2",
 		"markdown-it": "^14.3.0"
 	}
 }

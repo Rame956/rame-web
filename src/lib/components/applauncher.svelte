@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { apps, type App } from "$lib/apps/appslist";
+	import { apps, type App } from "$lib/data/appslist";
+	import { fly } from 'svelte/transition';
+	import { dropDownTransition } from '$lib/animations';
 
 
 	let { onOpen, isVisible, onOuterLauncherClick }: { onOpen: (app: App) => void, isVisible: boolean, onOuterLauncherClick: () => void } = $props();
@@ -9,7 +11,7 @@
 <!-- markup (zero or more items) goes here -->
 {#if isVisible}
     <div class="launcher-outer-zone" onclick={onOuterLauncherClick}></div>
-    <div class="launcher-container">
+    <div class="launcher-container" transition:fly={dropDownTransition}>
         {#each apps as appItem (appItem.id)}
             <button
                 class="app-container"

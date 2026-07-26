@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import Icon from "@iconify/svelte"
 
-
-	let { main_panel_title, onLauncherClick }: {main_panel_title?: string, onLauncherClick: () => void} = $props();
+	let { main_panel_title, onLauncherClick, onWebringsClick }: {main_panel_title?: string, onLauncherClick: () => void, onWebringsClick: () => void} = $props();
 
 	let now = $state(new Date());
 
@@ -20,12 +20,9 @@
 <div class="panel">
 
     <div class="left">
-        <div class="launch-app" onclick={onLauncherClick}>
-            <svg width="16px" height="16px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 16L12 14V10L13.6569 8.34314C15.1571 6.84285 16 4.80802 16 2.68629V0H13.3137C11.192 0 9.15714 0.842855 7.65685 2.34315L6 4H2L0 6L10 16ZM10.5 7C11.3284 7 12 6.32843 12 5.5C12 4.67157 11.3284 4 10.5 4C9.67157 4 9 4.67157 9 5.5C9 6.32843 9.67157 7 10.5 7Z" fill="currentColor"/>
-            <path d="M4.9274 13.7558L2.24423 11.0726L0 15L1 16L4.9274 13.7558Z" fill="currentColor"/>
-            </svg>
-        </div>
+        <button class="launch-app sub-panel">
+            <Icon icon="material-symbols:rocket-launch" onclick={onLauncherClick} width=20/>
+        </button>
     </div>
 
     <div class="center">
@@ -33,7 +30,11 @@
     </div>
 
     <div class="right">
-        <div class="date-panel">
+        <button class="webring-panel sub-panel" onclick={onWebringsClick}>
+            <div>Webrings</div>
+            <Icon icon="material-symbols:arrow-drop-down" width=24/>
+        </button>
+        <div class="date-panel sub-panel">
             <div class="time-line">{now.toLocaleTimeString([], {
                 hour: '2-digit',
                 minute: '2-digit'
@@ -45,7 +46,6 @@
                 year: 'numeric'
             })}</div>
         </div>
-
     </div>
 </div>
 
@@ -65,10 +65,10 @@
         gap: 8px;
 
         z-index: 1000;
+        user-select: none;
     }
 
-    .launch-app,
-    .date-panel {
+    .sub-panel {
         background: var(--color-surface);
         color: var(--color-text);
 
@@ -118,6 +118,17 @@
         justify-content: center;
 
         border-radius: 8px;
+    }
+
+    .webring-panel{
+        width: auto;
+        height: 32px;
+        padding: 0 0 0 8px;
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        cursor: pointer;
+
     }
 
 	.left {

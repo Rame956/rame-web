@@ -1,6 +1,8 @@
 <script lang="ts">
 
   import type { Component } from 'svelte';
+  import { fly } from 'svelte/transition';
+  import { windowTransition } from '$lib/animations'
 
   let { windowParameters, onClose, onFocus, isFocused}: { windowParameters: WindowParameters,  onClose: () => void, onFocus: () => void, isFocused: boolean} = $props();
 
@@ -208,6 +210,7 @@
 	style:top={`${windowParameters.y}px`}
 	style:z-index={windowParameters.zIndex}
 	onpointerdown={onFocus}
+	transition:fly={windowTransition}
 >
     {#each resizeSides as side (side)}
         <div

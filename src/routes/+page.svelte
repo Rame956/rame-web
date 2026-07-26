@@ -1,14 +1,69 @@
 <script lang="ts">
+	import Webrings from "$lib/components/webrings.svelte";
+
     import { onMount } from 'svelte';
     import type { Component } from 'svelte';
+
+    import { fade } from 'svelte/transition';
 
     import BootScreen from '$lib/components/bootscreen.svelte';
     import Applauncher from '$lib/components/applauncher.svelte';
     import Window from '$lib/components/window.svelte';
     import Panel from '$lib/components/panel.svelte';
 
-    import type { App } from '$lib/apps/appslist';
-    import { apps } from '$lib/apps/appslist';
+    import type { App } from '$lib/data/appslist';
+    import { apps } from '$lib/data/appslist';
+	import type { WebringData } from "$lib/data/webrings";
+	import { webrings } from "$lib/data/webrings";
+	import { fetchWebringSite } from "$lib/data/webrings";
+
+	let webringSites = $state<Record<string, WebringData>>({});
+	let webringErrors = $state<Record<string, string>>({});
+	let isWebringLoading = $state(true);
+
+	onMount(async () => {
+		const results = await Promise.all(
+			webrings.map(async (webring) => {
+				try {
+					const [next, prev] = await Promise.all([
+						fetchWebringSite(
+							`${webring.apiBaseUrl}/${webring.slug}/next/data`, 'next'
+						),
+						fetchWebringSite(
+							`${webring.apiBaseUrl}/${webring.slug}/prev/data`, 'previous'
+						)
+					]);
+
+					return {
+						id: webring.id,
+						data: { next, prev },
+						error: null
+					};
+				} catch (error) {
+					return {
+						id: webring.id,
+						data: null,
+						error:
+							error instanceof Error
+								? error.message
+								: 'Unknown error'
+					};
+				}
+			})
+		);
+
+		for (const result of results) {
+			if (result.data) {
+				webringSites[result.id] = result.data;
+			}
+
+			if (result.error) {
+				webringErrors[result.id] = result.error;
+			}
+		}
+
+		isWebringLoading = false;
+	});
 
     type WindowData = {
         id: number;
@@ -34,6 +89,7 @@
     let isBooting = $state(false);
     let isInitialized = $state(false);
     let isLauncherVisible = $state(false);
+    let areWebringsVisible = $state(true);
     let isUserOnMobile = $state(false);
 
     let windows = $state<WindowData[]>([]);
@@ -244,18 +300,27 @@
     {#if isBooting}
         <BootScreen onComplete={onBootComplete} isUserOnMobile={isUserOnMobile}/>
     {:else}
-        <main>
+        <main transition:fade>
             <Panel
                 main_panel_title={windows.find(
                     (window) => window.id === focusedWindowId
                 )?.title}
-                onLauncherClick={onLauncherClick}
+                onLauncherClick={() => isLauncherVisible = !isLauncherVisible}
+                onWebringsClick={() => areWebringsVisible = !areWebringsVisible}
             />
 
             <Applauncher
                 onOpen={onOpen}
                 isVisible={isLauncherVisible}
                 onOuterLauncherClick={onLauncherClick}
+            />
+
+            <Webrings
+                isVisible={areWebringsVisible}
+                onOuterwebringsClick={() => areWebringsVisible = !areWebringsVisible}
+                webringData={webringSites}
+                isWebringLoading={isWebringLoading}
+                webringErrors={webringErrors}
             />
 
             <div class="window-environment">

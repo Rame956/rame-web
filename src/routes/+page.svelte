@@ -89,7 +89,7 @@
     let isBooting = $state(false);
     let isInitialized = $state(false);
     let isLauncherVisible = $state(false);
-    let areWebringsVisible = $state(true);
+    let areWebringsVisible = $state(false);
     let isUserOnMobile = $state(false);
 
     let windows = $state<WindowData[]>([]);

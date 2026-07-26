@@ -17,7 +17,7 @@ export type PublicSite = {
 
 export type WebringData = {
 	next?: PublicSite;
-	prev?: PublicSite;
+	previous?: PublicSite;
 };
 
 export async function fetchWebringSite(

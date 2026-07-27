@@ -43,9 +43,9 @@ export async function fetchWebringSite(
 export const webrings: Webring[] = [
   {
     id: "otoring",
-    isActive: true,
+    isActive: false,
     name: "Otori.ng",
-    slug: "damir",
+    slug: "rame",
     apiBaseUrl: 'https://webring.otomir23.me',
     homepageUrl: 'https://webring.otomir23.me',
     faviconsUrl: 'https://webring.otomir23.me/media/'

@@ -31,7 +31,7 @@
 							`${webring.apiBaseUrl}/${webring.slug}/next/data`, 'next'
 						),
 						fetchWebringSite(
-							`${webring.apiBaseUrl}/${webring.slug}/previous/data`, 'previous'
+							`${webring.apiBaseUrl}/${webring.slug}/prev/data`, 'previous'
 						)
 					]);
 

@@ -82,23 +82,29 @@
                     </svg>
                 </button>
             </div>
-            {#if activeApp.id === 'webrings'}
+            <div class="app-content">
+                {#if activeApp.id === 'webrings'}
 			<Content
 				webringData={webringData}
 				isWebringLoading={isWebringLoading}
 				webringErrors={webringErrors}
-    			/>
-    		{:else}
-    			<Content {...activeApp.props} />
-    		{/if}
+        			/>
+        		{:else}
+        			<Content {...activeApp.props} />
+        		{/if}
+            </div>
         </div>
     {/if}
 </div>
 
 <style>
 	/* styles go here */
+	.launcher-enviroment {
+	    --panel-height: calc(40px + env(safe-area-inset-top));
+		min-height: 100dvh;
+	}
 	.app-list{
-        margin-top: 40px;
+	    margin-top: var(--panel-height);
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 24px;
@@ -137,6 +143,7 @@
 	.window-header {
     	height: 30px;
         padding: 0 4px 0 10px;
+        flex: 0 0 30px;
 
         display: flex;
         align-items: center;
@@ -182,8 +189,10 @@
 
 	.app-window {
         position: fixed;
-        top: 40px;
-        right: 0;
+        top: var(--panel-height);
+    	right: 0;
+    	bottom: 0;
+    	left: 0;
         width: 100%;
         height: 100%;
         z-index: 1000;
@@ -191,6 +200,14 @@
 		flex-direction: column;
 		background: var(--color-surface);
         color: var(--color-text);
+        overflow: hidden;
+        padding-bottom: env(safe-area-inset-bottom);
+	}
+
+	.app-content {
+		flex: 1;
+		min-height: 0;
+		overflow-y: auto;
 	}
 
 	.panel {
@@ -198,13 +215,14 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 40px;
+        height: var(--panel-height);
         padding: 4px 8px;
+        padding-top: env(safe-area-inset-top);
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         align-items: center;
         gap: 8px;
-
+        padding-top: env(safe-area-inset-top);
         z-index: 1001;
         user-select: none;
     }

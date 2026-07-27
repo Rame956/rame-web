@@ -40,13 +40,9 @@
 
 		phase = 'plymouth';
 
-		if(isUserOnMobile){
-		  await sleep(2500);
-		  phase = 'error'
-		}else{
-		  await sleep(5500);
-		  phase = 'finished';
-		}
+        await sleep(5500);
+        phase = 'finished';
+
 		onComplete();
 	});
 

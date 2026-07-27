@@ -288,6 +288,8 @@
 
 	<meta name="theme-color" content="#2b1418" />
 
+	<script defer src="https://analytics.rame.wtf/script.js" data-website-id="2734707e-2c14-4ebb-a1c3-228d612a9323"></script>
+
 	<link rel="canonical" href="https://rame.wtf/" />
 	<meta property="og:image" content="https://rame.wtf/og-image.png" />
 	<meta property="og:locale" content="ru_RU" />

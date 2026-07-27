@@ -17,12 +17,12 @@ export type PublicSite = {
 
 export type WebringData = {
 	next?: PublicSite;
-	prev?: PublicSite;
+	previous?: PublicSite;
 };
 
 export async function fetchWebringSite(
 	url: string,
-	direction: 'next' | 'prev'
+	direction: 'next' | 'previous'
 ): Promise<PublicSite> {
 	const response = await fetch(url);
 

@@ -26,18 +26,18 @@
 		const results = await Promise.all(
 			webrings.map(async (webring) => {
 				try {
-					const [next, prev] = await Promise.all([
+					const [next, previous] = await Promise.all([
 						fetchWebringSite(
 							`${webring.apiBaseUrl}/${webring.slug}/next/data`, 'next'
 						),
 						fetchWebringSite(
-							`${webring.apiBaseUrl}/${webring.slug}/prev/data`, 'prev'
+							`${webring.apiBaseUrl}/${webring.slug}/previous/data`, 'previous'
 						)
 					]);
 
 					return {
 						id: webring.id,
-						data: { next, prev },
+						data: { next, previous },
 						error: null
 					};
 				} catch (error) {

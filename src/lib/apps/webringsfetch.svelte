@@ -28,22 +28,22 @@
 					<div class="webring-name">{webring.name}</div>
 
 					<div class="line">
-						<span class="label">prev:</span>
+						<span class="label">previous:</span>
 
 						<a
 							class="value"
-							href={data.prev?.url}
+							href={data.previous?.url}
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							{#if data.prev?.favicon}
+							{#if data.previous?.favicon}
 								<img
-									src={webring.faviconsUrl + data.prev.favicon}
+									src={webring.faviconsUrl + data.previous.favicon}
 									alt=""
 								/>
 							{/if}
 
-							← {data.prev?.name}
+							← {data.previous?.name}
 						</a>
 					</div>
 

@@ -217,6 +217,11 @@
         };
     });
 
+    function onBootComplete() {
+      isBooting = false;
+      sessionStorage.setItem('booted', 'true');
+    }
+
     function onClose(id: number) {
         windows = windows.filter((window) => window.id !== id);
 

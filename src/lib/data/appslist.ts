@@ -8,6 +8,7 @@ export type App = {
     id: string;
     name: string;
     title: string;
+    icon?: string;
     description: string;
     component: Component<any>;
     width: number;
@@ -17,39 +18,42 @@ export type App = {
 
 export const apps: App[] = [
     {
-        id: "ramefetch",
-        name: "RameFetch",
-        title: "~: ramefetch",
-        description: 'Информация обо мне',
-        component: RameFetch,
-        width: 800,
-        height: 450
+      id: "ramefetch",
+      name: "RameFetch",
+      title: "~: ramefetch",
+      icon: '/icons/ramefetchicon.svg',
+      description: 'Информация обо мне',
+      component: RameFetch,
+      width: 800,
+      height: 450
     },
 
     {
-        id: "welcome",
-        name: "Welcome",
-        title: "mdview: ~/Welcome.md",
-        description: 'Приветственный файл',
-        component: mdview,
-        width: 900,
-        height: 490,
+      id: "welcome",
+      name: "Welcome",
+      title: "mdview: ~/Welcome.md",
+      icon: '/icons/welcomeicon.svg',
+      description: 'Приветственный файл',
+      component: mdview,
+      width: 900,
+      height: 490,
 
-        props: {
-            file: {
-                name: "~/Welcome.md",
-                text: welcomeFile
-            }
-        }
+      props: {
+          file: {
+              name: "~/Welcome.md",
+              text: welcomeFile
+          }
+      }
     },
 
     {
-        id: "links",
-        name: "LinksFetch",
-        title: "~: linksfetch",
-        description: 'Разные ссылки и контакты',
-        component: LinksFetch,
-        width: 800,
-        height: 500
-    }
+      id: "links",
+      name: "LinksFetch",
+      title: "~: linksfetch",
+      icon: '/icons/linksfetchicon.svg',
+      description: 'Разные ссылки и контакты',
+      component: LinksFetch,
+      width: 800,
+      height: 500
+    },
 ];

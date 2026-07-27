@@ -85,7 +85,7 @@
 
 				<div class="status">Starting desktop environment</div>
 			</div>
-		{:else if phase === 'error'}
+		<!-- {:else if phase === 'error'}
     		<div class="plymouth-screen">
     			<div class="logo">RAME<span>.WTF</span></div>
 
@@ -95,7 +95,7 @@
 
     			<div class="status-error">Сайт пока что не рассчитан под смартфоны</div>
                 <div class="status-error">Зайди с ПК</div>
-    		</div>
+    		</div> -->
 		{/if}
 	</div>
 {/if}

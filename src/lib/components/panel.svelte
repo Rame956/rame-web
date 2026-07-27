@@ -20,8 +20,8 @@
 <div class="panel">
 
     <div class="left">
-        <button class="launch-app sub-panel">
-            <Icon icon="material-symbols:rocket-launch" onclick={onLauncherClick} width=20/>
+        <button class="launch-app sub-panel" onclick={onLauncherClick}>
+            <Icon icon="material-symbols:rocket-launch" width=20/>
         </button>
     </div>
 

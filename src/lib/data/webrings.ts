@@ -17,12 +17,12 @@ export type PublicSite = {
 
 export type WebringData = {
 	next?: PublicSite;
-	previous?: PublicSite;
+	prev?: PublicSite;
 };
 
 export async function fetchWebringSite(
 	url: string,
-	direction: 'next' | 'previous'
+	direction: 'next' | 'prev'
 ): Promise<PublicSite> {
 	const response = await fetch(url);
 
@@ -43,9 +43,9 @@ export async function fetchWebringSite(
 export const webrings: Webring[] = [
   {
     id: "otoring",
-    isActive: false,
+    isActive: true,
     name: "Otori.ng",
-    slug: "rame",
+    slug: "damir",
     apiBaseUrl: 'https://webring.otomir23.me',
     homepageUrl: 'https://webring.otomir23.me',
     faviconsUrl: 'https://webring.otomir23.me/media/'

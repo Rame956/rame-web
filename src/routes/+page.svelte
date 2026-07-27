@@ -7,6 +7,7 @@
     import { fade } from 'svelte/transition';
 
     import BootScreen from '$lib/components/bootscreen.svelte';
+    import MobileLauncher from '$lib/components/mobilelauncher.svelte';
     import Applauncher from '$lib/components/applauncher.svelte';
     import Window from '$lib/components/window.svelte';
     import Panel from '$lib/components/panel.svelte';
@@ -30,7 +31,7 @@
 							`${webring.apiBaseUrl}/${webring.slug}/next/data`, 'next'
 						),
 						fetchWebringSite(
-							`${webring.apiBaseUrl}/${webring.slug}/prev/data`, 'previous'
+							`${webring.apiBaseUrl}/${webring.slug}/prev/data`, 'prev'
 						)
 					]);
 
@@ -195,16 +196,18 @@
 
         const hasBooted = sessionStorage.getItem('booted') === 'true';
 
-        const ramefetchWindow = createWindow(ramefetchApp, {
-            offset: 400
-        });
+        if(!isUserOnMobile){
+          const ramefetchWindow = createWindow(ramefetchApp, {
+              offset: 400
+          });
 
-        const welcomeWindow = createWindow(welcomeApp, {
-            offset: -400
-        });
+          const welcomeWindow = createWindow(welcomeApp, {
+              offset: -400
+          });
 
-        windows = [ramefetchWindow, welcomeWindow];
-        focusedWindowId = welcomeWindow.id;
+          windows = [ramefetchWindow, welcomeWindow];
+          focusedWindowId = welcomeWindow.id;
+        }
 
         isBooting = !hasBooted;
         isInitialized = true;
@@ -301,38 +304,42 @@
         <BootScreen onComplete={onBootComplete} isUserOnMobile={isUserOnMobile}/>
     {:else}
         <main transition:fade>
-            <Panel
-                main_panel_title={windows.find(
-                    (window) => window.id === focusedWindowId
-                )?.title}
-                onLauncherClick={() => isLauncherVisible = !isLauncherVisible}
-                onWebringsClick={() => areWebringsVisible = !areWebringsVisible}
-            />
+            {#if !isUserOnMobile}
+                <Panel
+                    main_panel_title={windows.find(
+                        (window) => window.id === focusedWindowId
+                    )?.title}
+                    onLauncherClick={() => isLauncherVisible = !isLauncherVisible}
+                    onWebringsClick={() => areWebringsVisible = !areWebringsVisible}
+                />
 
-            <Applauncher
-                onOpen={onOpen}
-                isVisible={isLauncherVisible}
-                onOuterLauncherClick={onLauncherClick}
-            />
+                <Applauncher
+                    onOpen={onOpen}
+                    isVisible={isLauncherVisible}
+                    onOuterLauncherClick={onLauncherClick}
+                />
 
-            <Webrings
-                isVisible={areWebringsVisible}
-                onOuterwebringsClick={() => areWebringsVisible = !areWebringsVisible}
-                webringData={webringSites}
-                isWebringLoading={isWebringLoading}
-                webringErrors={webringErrors}
-            />
+                <Webrings
+                    isVisible={areWebringsVisible}
+                    onOuterwebringsClick={() => areWebringsVisible = !areWebringsVisible}
+                    webringData={webringSites}
+                    isWebringLoading={isWebringLoading}
+                    webringErrors={webringErrors}
+                />
 
-            <div class="window-environment">
-                {#each windows as window (window.id)}
-                    <Window
-                        windowParameters={window}
-                        onClose={() => onClose(window.id)}
-                        onFocus={() => onFocus(window.id)}
-                        isFocused={focusedWindowId === window.id}
-                    />
-                {/each}
-            </div>
+                <div class="window-environment">
+                    {#each windows as window (window.id)}
+                        <Window
+                            windowParameters={window}
+                            onClose={() => onClose(window.id)}
+                            onFocus={() => onFocus(window.id)}
+                            isFocused={focusedWindowId === window.id}
+                        />
+                    {/each}
+                </div>
+                {:else}
+                <MobileLauncher webringData={webringSites} isWebringLoading={isWebringLoading} webringErrors={webringErrors}/>
+            {/if}
         </main>
     {/if}
 {/if}

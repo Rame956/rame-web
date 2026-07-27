@@ -33,9 +33,9 @@
 			{:else if webringData[webring.id]}
 				{@const data = webringData[webring.id]}
 
-				<a class="webring-link webring-link-prev" href={data.previous?.url} target="_blank" rel="noopener noreferrer">
-				← {data.previous?.name}
-				{#if data.previous?.favicon}<img src={webring.faviconsUrl + data.previous?.favicon} width="16" height="16" alt=""/>{/if}
+				<a class="webring-link webring-link-prev" href={data.prev?.url} target="_blank" rel="noopener noreferrer">
+				← {data.prev?.name}
+				{#if data.prev?.favicon}<img src={webring.faviconsUrl + data.prev?.favicon} width="16" height="16" alt=""/>{/if}
 				</a>
 
 				<a class="webring-link webring-title" href={webring.apiBaseUrl} target="_blank" rel="noopener noreferrer">

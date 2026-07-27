@@ -140,4 +140,23 @@
         flex: 1;
         color: var(--accent);
     }
+
+    @media (max-width: 640px) {
+	.ramefetch {
+		grid-template-columns: 1fr;
+		gap: 20px;
+		padding: 12px;
+	}
+
+	.logo {
+		font-size: 8px;
+		justify-self: center;
+		max-width: 100%;
+		overflow-x: auto;
+	}
+
+	.info {
+		min-width: 0;
+	}
+    }
 </style>

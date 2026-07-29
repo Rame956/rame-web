@@ -25,7 +25,7 @@
      	{
      	  name: 'rame-web',
      	  link: 'https://github.com/Rame956/rame-web',
-     	  description: 'Сайт, на котором вы сейчас находитесь)'
+     	  description: sessionStorage.getItem('locale') === 'ru' ? 'Сайт, на котором вы сейчас находитесь)' : "Source code of this site :)"
      	},
 	]
 </script>

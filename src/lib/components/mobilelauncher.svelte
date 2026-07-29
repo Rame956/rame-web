@@ -1,14 +1,17 @@
     <script lang="ts">
         import { onMount } from "svelte";
-        import { apps, type App } from '$lib/data/appslist';
+        import { type App } from '$lib/data/appslist.svelte';
         import Icon from "@iconify/svelte"
     	import type { WebringData } from "$lib/data/webrings";
     	import Webringsfetch from "$lib/apps/webringsfetch.svelte";
+	import { goto } from "$app/navigation";
 
-        let { webringData, isWebringLoading, webringErrors }: {
+        let { webringData, isWebringLoading, webringErrors, apps, currentLocale }: {
            	webringData: Record<string, WebringData>,
            	isWebringLoading: boolean,
-           	webringErrors: Record<string, string>
+           	webringErrors: Record<string, string>,
+            apps: App[],
+            currentLocale: "ru" | "en"
     	} = $props();
         // let activeApp = $state<App | undefined>(apps.find((app) => app.id === 'welcome'));
         let activeApp = $state<App | undefined>(undefined);
@@ -59,6 +62,16 @@
             </div>
 
             <div class="right">
+                <button
+                   	class="language-switch"
+                   	aria-label={currentLocale === 'ru'
+                  		? 'Switch to English'
+                  		: 'Переключить на русский'}
+                   	onclick={() => goto(currentLocale === 'ru' ? '/en' : '/')}
+                                    >
+                   	<span class="current-locale">{currentLocale}</span>
+                   	<Icon icon="material-symbols:cached" color='#FFF' width={24} />
+                </button>
                 <Icon icon='material-symbols:signal-cellular-3-bar' color='#FFF' width=24/>
                 <Icon icon='material-symbols:battery-android-5' color='#FFF' width=24/>
             </div>
@@ -66,7 +79,7 @@
         <div class="app-list">
             {#each mobileApps as app (app.id)}
                 <div class="app" onclick={() => activeApp = mobileApps.find((appa) => appa.id === app.id)}>
-                    <img class="app-logo" src={app.icon}/>
+                    <img class="app-logo" src={app.icon} alt=""/>
                     <div class="app-name">{app.name}</div>
                 </div>
             {/each}
@@ -283,6 +296,27 @@
         .right {
             display: flex;
             justify-content: flex-end;
-            gap: 8px;
+            gap: 6px;
+        }
+
+        .current-locale{
+            text-align: center;
+            color: var(--color-text);
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .language-switch {
+           	display: flex;
+           	align-items: center;
+           	justify-content: center;
+           	gap: 2px;
+
+           	padding: 0;
+           	border: 0;
+           	background: transparent;
+           	color: inherit;
+           	font: inherit;
+           	cursor: pointer;
         }
     </style>

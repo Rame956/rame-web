@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { apps, type App } from "$lib/data/appslist";
 	import { fly } from 'svelte/transition';
 	import { dropDownTransition } from '$lib/animations';
+	import type { App } from '$lib/data/appslist.svelte';
 
 
-	let { onOpen, isVisible, onOuterLauncherClick }: { onOpen: (app: App) => void, isVisible: boolean, onOuterLauncherClick: () => void } = $props();
+	let { onOpen, isVisible, onOuterLauncherClick, apps }: { onOpen: (app: App) => void, isVisible: boolean, onOuterLauncherClick: () => void, apps: App[] } = $props();
+
 
 </script>
 

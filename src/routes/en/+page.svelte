@@ -101,7 +101,7 @@
     let nextZIndex = $state(1);
     let nextWindowId = $state(1);
 
-    const apps = appsList('ru');
+    const apps = appsList('en');
 
     const ramefetchApp = apps.find((app) => app.id === 'ramefetch');
     const welcomeApp = apps.find((app) => app.id === 'welcome');
@@ -189,7 +189,6 @@
     }
 
     onMount(() => {
-        sessionStorage.setItem('locale', 'ru');
         const mediaQuery = window.matchMedia('(max-width: 900px)');
 
         function updateMobileState() {
@@ -280,13 +279,13 @@
 
 	<meta
 		name="description"
-		content="Персональный desktop-сайт разработчика Rame: проекты, эксперименты, ссылки и интерактивные приложения."
+		content="Rame's personal desktop-site: projects, experiments contacts and interactive apps."
 	/>
 
 	<meta property="og:title" content="Rame.WTF" />
 	<meta
 		property="og:description"
-		content="Персональный desktop-сайт разработчика Rame: проекты, эксперименты, ссылки и интерактивные приложения."
+		content="Rame's personal desktop-site: projects, experiments contacts and interactive apps."
 	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://rame.wtf" />
@@ -297,10 +296,10 @@
 
 	<link rel="canonical" href="https://rame.wtf/" />
 	<meta property="og:image" content="https://rame.wtf/og-image.png" />
-	<meta property="og:locale" content="ru_RU" />
+	<meta property="og:locale" content="en_EN" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Rame.wtf" />
-	<meta name="twitter:description" content="Персональный desktop-сайт разработчика Rame: проекты, эксперименты, ссылки и интерактивные приложения." />
+	<meta name="twitter:description" content="Rame's personal desktop-site: projects, experiments contacts and interactive apps." />
 	<!-- <meta name="twitter:image" content="..." /> -->
 </svelte:head>
 
@@ -337,7 +336,7 @@
                 <Languages
                     isVisible={areLanguagesVisible}
                     onOuterlanguagesClick={() => areLanguagesVisible = !areLanguagesVisible}
-                    currentlocale='ru'
+                    currentlocale='en'
                     />
 
                 <div class="window-environment">
@@ -351,7 +350,7 @@
                     {/each}
                 </div>
                 {:else}
-                <MobileLauncher webringData={webringSites} isWebringLoading={isWebringLoading} webringErrors={webringErrors} apps={apps} currentLocale="ru"/>
+                <MobileLauncher webringData={webringSites} isWebringLoading={isWebringLoading} webringErrors={webringErrors} apps={apps} currentLocale="en"/>
             {/if}
         </main>
     {/if}

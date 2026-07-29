@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import Icon from "@iconify/svelte"
 
-	let { main_panel_title, onLauncherClick, onWebringsClick }: {main_panel_title?: string, onLauncherClick: () => void, onWebringsClick: () => void} = $props();
+	let { main_panel_title, onLauncherClick, onWebringsClick, onLanguageClick }: {main_panel_title?: string, onLauncherClick: () => void, onWebringsClick: () => void, onLanguageClick: () => void} = $props();
 
 	let now = $state(new Date());
 
@@ -30,6 +30,10 @@
     </div>
 
     <div class="right">
+        <button class="webring-panel sub-panel" onclick={onLanguageClick}>
+            <Icon icon="material-symbols:globe" width=24/>
+            <Icon icon="material-symbols:arrow-drop-down" width=24/>
+        </button>
         <button class="webring-panel sub-panel" onclick={onWebringsClick}>
             <div>Webrings</div>
             <Icon icon="material-symbols:arrow-drop-down" width=24/>

@@ -4,7 +4,7 @@
         import Icon from "@iconify/svelte"
     	import type { WebringData } from "$lib/data/webrings";
     	import Webringsfetch from "$lib/apps/webringsfetch.svelte";
-	import { goto } from "$app/navigation";
+        import { goto } from "$app/navigation";
 
         let { webringData, isWebringLoading, webringErrors, apps, currentLocale }: {
            	webringData: Record<string, WebringData>,

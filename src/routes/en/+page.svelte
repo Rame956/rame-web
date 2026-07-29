@@ -189,6 +189,7 @@
     }
 
     onMount(() => {
+        sessionStorage.setItem('locale', 'en');
         const mediaQuery = window.matchMedia('(max-width: 900px)');
 
         function updateMobileState() {

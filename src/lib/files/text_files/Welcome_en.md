@@ -20,3 +20,7 @@ But if you're reading this file, you've probably already figured it out :)
 Almost everything you see here was built by me from scratch (except Svelte, of course), without ready-made UI libraries and AI-generated code.
 
 You can view the site’s source code and contact me — for some reason — through the **LinksFetch** app.
+
+## And a little about analytics
+I use Umami to collect statistics and analytics... Just for your information)
+There are no cookies, and the statistics are anonymized as much as possible, so don't worry about your anonymity.

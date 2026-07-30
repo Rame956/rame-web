@@ -3,6 +3,7 @@
 
     import { onMount } from 'svelte';
     import type { Component } from 'svelte';
+    import { dev } from '$app/environment';
 
     import { fade } from 'svelte/transition';
 
@@ -293,7 +294,9 @@
 
 	<meta name="theme-color" content="#2b1418" />
 
-	<script defer src="https://analytics.rame.wtf/script.js" data-website-id="2734707e-2c14-4ebb-a1c3-228d612a9323"></script>
+	{#if !dev}
+	    <script defer src="https://analytics.rame.wtf/script.js" data-website-id="2734707e-2c14-4ebb-a1c3-228d612a9323"></script>
+	{/if}
 
 	<link rel="canonical" href="https://rame.wtf/" />
 	<meta property="og:image" content="https://rame.wtf/og-image.png" />

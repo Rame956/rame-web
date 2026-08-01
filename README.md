@@ -12,6 +12,7 @@ Originally started as a fun side project, it has grown into a desktop-inspired p
 - Ramfetch
 - Markdown viewer
 - Links page
+- Minesweeper The Game
 
 ## TODO:
 - Window manager improvments

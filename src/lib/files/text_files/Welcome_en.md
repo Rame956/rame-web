@@ -8,6 +8,12 @@ From time to time, new “apps” will appear here. I use them to practice my sk
 
 In the top-left corner, you’ll find a launcher that lets you open everything available on the site.
 
+# Available apps:
+ - RameFetch - Neofetch, but about me)
+ - Welcome - Opens this window
+ - Linksfetch - Prints contacts and other links
+ - Minesweeper - Minesweeper The GAME
+
 The windows can also be moved, resized, and even closed.
 
 Later, I’m planning to add a terminal to make the whole thing feel even more Linux-like :)

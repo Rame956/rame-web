@@ -181,6 +181,24 @@
 
   }
 
+  const WINDOW_HEADER_HEIGHT = 30;
+  const WINDOW_PADDING = 16;
+
+  function resizeContentWindow(contentWidth: number, contentHeight: number) {
+	const maxWidth = window.innerWidth - 32;
+	const maxHeight = window.innerHeight - 56;
+
+	windowParameters.width = Math.min(
+		contentWidth + 16,
+		maxWidth
+	);
+
+	windowParameters.height = Math.min(
+		contentHeight + 46,
+		maxHeight
+	);
+  }
+
   function handleDragging(event: PointerEvent){
     if(isDragging){
       windowParameters.x = Math.min(
@@ -242,7 +260,8 @@
     <div class="window-content">
         {#if windowParameters.windowContent}
             {@const Content = windowParameters.windowContent}
-            <Content {...windowParameters.contentProps}/>
+            <Content {...windowParameters.contentProps}
+                onResize={resizeContentWindow}/>
         {/if}
     </div>
 </div>
@@ -273,7 +292,7 @@
     	flex: 1;
         min-width: 0;
         min-height: 0;
-        overflow: hidden;
+        overflow: auto;
 	}
 
 	.resize-handle {

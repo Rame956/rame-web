@@ -21,6 +21,7 @@
 
     <div class="left">
         <button class="launch-app sub-panel" onclick={onLauncherClick}>
+            <div>Applications</div>
             <Icon icon="material-symbols:rocket-launch" width=20/>
         </button>
     </div>
@@ -81,12 +82,15 @@
     }
 
     .launch-app {
-        width: 32px;
+        width: 125px;
         height: 32px;
 
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 8px;
+
+        font-weight: 600;
 
         border-radius: 8px;
 

@@ -4,6 +4,7 @@ import LinksFetch from '$lib/apps/linksfetch.svelte';
 import welcomeFile from '$lib/files/text_files/Welcome.md?raw';
 import welcomeFileEn from '$lib/files/text_files/Welcome_en.md?raw';
 import type { Component } from 'svelte';
+import Minesweeper from '$lib/apps/minesweeper.svelte';
 
 export type App = {
     id: string;
@@ -57,6 +58,20 @@ export function appsList(locale: "ru" | "en"): App[] {
       component: LinksFetch,
       width: 800,
       height: 500
+    },
+
+    {
+      id: "minesweeper",
+      name: "MineSweeper",
+      title: "MineSweeper",
+      icon: '/icons/minesweepericon.svg',
+      description: locale === 'ru' ? 'MineSweeper' : 'MineSweeper',
+      component: Minesweeper,
+      width: 350,
+      height: 450,
+      props: {
+        currentLocale: locale
+      }
     },
   ];
 

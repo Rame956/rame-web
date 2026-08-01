@@ -106,6 +106,7 @@
 
     const ramefetchApp = apps.find((app) => app.id === 'ramefetch');
     const welcomeApp = apps.find((app) => app.id === 'welcome');
+    const minesweeperApp = apps.find((app) => app.id === 'minesweeper');
 
     if (!ramefetchApp || !welcomeApp) {
         throw new Error('Initial applications are missing');

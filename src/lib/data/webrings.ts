@@ -3,9 +3,15 @@ export type Webring = {
 	isActive: boolean;
 	name: string;
 	slug: string;
-  apiBaseUrl: string;
-  homepageUrl: string;
-  faviconsUrl?: string;
+
+	apiBaseUrl: string;
+	homepageUrl: string;
+	faviconsUrl?: string;
+
+	nextDataURL?: string;
+	prevDataURL?: string;
+
+	responseFormat: 'wrapped' | 'direct';
 };
 
 export type PublicSite = {
@@ -22,7 +28,7 @@ export type WebringData = {
 
 export async function fetchWebringSite(
 	url: string,
-	direction: 'next' | 'previous'
+	direction?: 'next' | 'previous'
 ): Promise<PublicSite> {
 	const response = await fetch(url);
 
@@ -30,14 +36,30 @@ export async function fetchWebringSite(
 		throw new Error(`HTTP ${response.status}`);
 	}
 
-	const data: WebringData = await response.json();
-	const site = data[direction];
+	const data = await response.json();
 
-	if (!site) {
-		throw new Error(`Response does not contain "${direction}"`);
+	const rawSite =
+		direction && data[direction]
+			? data[direction]
+			: data;
+
+	if (
+		typeof rawSite !== 'object' ||
+		rawSite === null ||
+		typeof rawSite.name !== 'string' ||
+		typeof rawSite.url !== 'string'
+	) {
+		throw new Error(
+			`Invalid webring response${direction ? ` for "${direction}"` : ''}`
+		);
 	}
 
-	return site;
+	return {
+		slug: rawSite.slug ?? '',
+		name: rawSite.name,
+		url: rawSite.url,
+		favicon: rawSite.favicon ?? rawSite.faviconName
+	};
 }
 
 export const webrings: Webring[] = [
@@ -48,6 +70,21 @@ export const webrings: Webring[] = [
     slug: "rame",
     apiBaseUrl: 'https://webring.otomir23.me',
     homepageUrl: 'https://webring.otomir23.me',
-    faviconsUrl: 'https://webring.otomir23.me/media/'
+    faviconsUrl: 'https://webring.otomir23.me/media/',
+    nextDataURL: 'https://webring.otomir23.me/rame/next/data/',
+    prevDataURL: 'https://webring.otomir23.me/rame/prev/data/',
+    responseFormat: 'wrapped'
+  },
+  {
+    id: "foxring",
+    isActive: true,
+    name: "Foxring",
+    slug: "https://rame.wtf/",
+    apiBaseUrl: 'https://foxr.ing',
+    homepageUrl: 'https://foxr.ing',
+    faviconsUrl: 'https://foxr.ing/favicons/',
+    nextDataURL: 'https://foxr.ing/next/json?from=https%3A%2F%2Frame.wtf%2F',
+    prevDataURL: 'https://foxr.ing/prev/json?from=https%3A%2F%2Frame.wtf%2F',
+    responseFormat: 'direct'
   },
 ];

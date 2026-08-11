@@ -30,10 +30,10 @@
 				try {
 					const [next, previous] = await Promise.all([
 						fetchWebringSite(
-							`${webring.apiBaseUrl}/${webring.slug}/next/data`, 'next'
+							`${webring.nextDataURL}`, 'next'
 						),
 						fetchWebringSite(
-							`${webring.apiBaseUrl}/${webring.slug}/prev/data`, 'previous'
+							`${webring.prevDataURL}`, 'previous'
 						)
 					]);
 

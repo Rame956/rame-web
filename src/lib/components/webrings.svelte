@@ -73,11 +73,10 @@
         right: 10px;
         top: 40px;
         padding: 14px;
-        width: min(400px, calc(100vw - 20px));
+        width: min(600px, calc(100vw - 20px));
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        width: 400px;
         gap: 14px;
         background: var(--color-window-bg);
         border: 1px solid var(--color-border);

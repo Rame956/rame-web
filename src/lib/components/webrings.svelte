@@ -135,10 +135,17 @@
     .webring-link-next {
     	text-align: right;
     	font-weight: 500;
+        display: flex;
+    	align-items: center;
+    	gap: 4px;
+        justify-content: flex-end;
     }
 
     .disabled{
         color: var(--color-text-muted);
         text-align: center;
+        display: flex;
+    	align-items: center;
+    	gap: 4px;
     }
 </style>

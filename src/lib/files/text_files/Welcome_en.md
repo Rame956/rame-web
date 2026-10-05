@@ -13,6 +13,7 @@ In the top-left corner, you’ll find a launcher that lets you open everything a
  - Welcome - Opens this window
  - Linksfetch - Prints contacts and other links
  - Minesweeper - Minesweeper The GAME
+ - Meme Generator - the name says it all
 
 The windows can also be moved, resized, and even closed.
 

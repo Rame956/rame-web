@@ -1,0 +1,294 @@
+.meme-app {
+	padding: 20px;
+	color: var(--color-text-primary);
+	container-type: inline-size;
+	font-size: 13px;
+}
+.meme-app .app-heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 20px;
+}
+.meme-app .eyebrow {
+	font: 10px monospace;
+	letter-spacing: 2px;
+	color: var(--color-accent);
+}
+.meme-app h1 {
+	font-size: 25px;
+	margin: 4px 0 0;
+}
+.meme-app h2 {
+	font-size: 13px;
+	margin: 0;
+}
+.meme-app .privacy-note {
+	font-size: 11px;
+	color: var(--color-text);
+}
+.meme-app .section-tabs {
+	display: flex;
+	gap: 8px;
+	border-bottom: 1px solid var(--color-border);
+	padding-bottom: 12px;
+	margin-bottom: 18px;
+}
+.meme-app .section-tabs button {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	font-size: 14px;
+	padding: 11px 18px;
+}
+.meme-app .section-tabs span {
+	font: 10px monospace;
+	opacity: 0.75;
+}
+.meme-app .editor-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 250px;
+	gap: 20px;
+}
+.meme-app .preview-pane {
+	min-width: 0;
+}
+.meme-app .template-list {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 14px;
+}
+.meme-app .template-list button {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	justify-content: center;
+	min-width: 0;
+	padding: 7px;
+}
+.meme-app .template-list img {
+	width: 88px;
+	height: 62px;
+	object-fit: cover;
+	border-radius: 3px;
+}
+.meme-app .preview-stage {
+	position: relative;
+	background: #111111;
+	border: 1px solid var(--color-border);
+	border-radius: 8px;
+	overflow: hidden;
+}
+.meme-app .preview-stage > canvas {
+	display: block;
+	width: 100%;
+	height: auto;
+	cursor: grab;
+	touch-action: none;
+}
+.meme-app .preview-stage > canvas:active {
+	cursor: grabbing;
+}
+.meme-app .gif-stage {
+	padding: 14px;
+}
+.meme-app .gif-composition {
+	width: 100%;
+	margin: auto;
+}
+.meme-app .caption-preview,
+.meme-app .gif-preview {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+.meme-app .caption-preview.hidden {
+	display: none;
+}
+.meme-app .loading {
+	position: absolute;
+	inset: 0;
+	margin: 0;
+	display: grid;
+	place-items: center;
+	background: var(--color-window-bg);
+	z-index: 1;
+}
+.meme-app .hint {
+	font-size: 11px;
+	color: var(--color-text);
+	line-height: 1.5;
+}
+.meme-app .file-name {
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+.meme-app .export-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-top: 15px;
+}
+.meme-app button,
+.meme-app select,
+.meme-app textarea,
+.meme-app .file-button {
+	font: inherit;
+	font-size: 12px;
+	color: var(--color-text-primary);
+	background: var(--color-surface-active);
+	border: 1px solid var(--color-border);
+	border-radius: 6px;
+	padding: 9px 11px;
+}
+.meme-app button,
+.meme-app select,
+.meme-app .file-button {
+	cursor: pointer;
+}
+.meme-app button:hover,
+.meme-app .file-button:hover {
+	background: var(--color-surface-hover);
+}
+.meme-app button:disabled,
+.meme-app fieldset:disabled {
+	opacity: 0.55;
+}
+.meme-app button:disabled {
+	cursor: default;
+}
+.meme-app .active {
+	background: var(--color-accent-muted);
+	border-color: var(--color-accent);
+}
+.meme-app .primary {
+	background: var(--color-accent);
+	border-color: var(--color-accent);
+}
+.meme-app .danger {
+	color: #ffc0ca;
+	margin-top: 8px;
+}
+.meme-app :focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 3px;
+}
+.meme-app fieldset {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.meme-app label {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 12px;
+	gap: 8px;
+}
+.meme-app label span,
+.meme-app .control-heading span {
+	color: var(--color-text);
+}
+.meme-app textarea {
+	width: 100%;
+	resize: vertical;
+	min-height: 70px;
+}
+.meme-app select {
+	width: 100%;
+}
+.meme-app .control-heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 8px;
+}
+.meme-app .layer-list {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	max-height: 155px;
+	overflow-y: auto;
+}
+.meme-app .layer-list button {
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 7px 9px;
+	flex-shrink: 0;
+}
+.meme-app .file-button {
+	position: relative;
+	display: block;
+	text-align: center;
+	overflow: hidden;
+}
+.meme-app .file-button input {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+.meme-app .file-button:focus-within {
+	outline: 2px solid var(--color-accent);
+}
+.meme-app input[type='range'] {
+	accent-color: var(--color-accent);
+	width: 100%;
+	margin: 0 0 5px;
+}
+.meme-app input[type='color'] {
+	width: 36px;
+	height: 28px;
+	padding: 0;
+	border: 0;
+	background: transparent;
+}
+.meme-app details {
+	font-size: 12px;
+}
+.meme-app summary {
+	cursor: pointer;
+	margin: 5px 0 10px;
+}
+.meme-app .status {
+	font-size: 12px;
+	color: var(--color-text);
+	min-height: 18px;
+}
+.meme-app progress {
+	width: 100%;
+	accent-color: var(--color-accent);
+	margin-top: 10px;
+}
+@container (max-width: 650px) {
+	.meme-app .editor-grid {
+		grid-template-columns: 1fr;
+	}
+	.meme-app .controls {
+		border-top: 1px solid var(--color-border);
+		padding-top: 16px;
+	}
+	.meme-app .privacy-note {
+		display: none;
+	}
+}
+
+.meme-app .primary:hover {
+	background: var(--color-accent-hover);
+}
+.meme-app .uppercase-toggle {
+	justify-content: flex-start;
+}
+.meme-app .uppercase-toggle input {
+	accent-color: var(--color-accent);
+}

@@ -13,10 +13,10 @@ Originally started as a fun side project, it has grown into a desktop-inspired p
 - Markdown viewer
 - Links page
 - Minesweeper The Game
+- Meme Studio: image memes with editable text layers and GIFs with caption headers
 
 ## TODO:
 - Window manager improvments
-- Mobile version
 - Terminal
 - More apps
 

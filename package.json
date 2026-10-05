@@ -14,6 +14,7 @@
 		"format": "prettier --write .",
 		"test": "vitest run",
 		"test:watch": "vitest",
+		"test:memes": "node --experimental-strip-types tests/meme-gif.test.mjs",
 		"test:e2e": "playwright test",
 		"ci": "npm run check && npm run lint && npm run test && npm run build"
 	},
@@ -40,6 +41,8 @@
 	"dependencies": {
 		"@iconify-json/material-symbols": "^1.2.87",
 		"@iconify/svelte": "^5.2.2",
+		"gifenc": "^1.0.3",
+		"gifuct-js": "^2.1.2",
 		"markdown-it": "^14.3.0"
 	}
 }

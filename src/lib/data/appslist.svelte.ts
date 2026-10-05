@@ -5,6 +5,7 @@ import welcomeFile from '$lib/files/text_files/Welcome.md?raw';
 import welcomeFileEn from '$lib/files/text_files/Welcome_en.md?raw';
 import type { Component } from 'svelte';
 import Minesweeper from '$lib/apps/minesweeper.svelte';
+import MemeGenerator from '$lib/apps/memegenerator.svelte';
 
 export type App = {
     id: string;
@@ -20,6 +21,17 @@ export type App = {
 
 export function appsList(locale: "ru" | "en"): App[] {
   return [
+    {
+      id: "memegenerator",
+      name: "Meme Studio",
+      title: "Meme Studio",
+      icon: '/icons/memeicon.svg',
+      description: locale === 'ru' ? 'Мемы из картинок и GIF' : 'Image and GIF meme generator',
+      component: MemeGenerator,
+      width: 1000,
+      height: 760,
+      props: { currentLocale: locale }
+    },
     {
       id: "ramefetch",
       name: "RameFetch",

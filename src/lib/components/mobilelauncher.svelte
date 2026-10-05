@@ -79,7 +79,11 @@
         <div class="app-list">
             {#each mobileApps as app (app.id)}
                 <div class="app" onclick={() => activeApp = mobileApps.find((appa) => appa.id === app.id)}>
-                    <img class="app-logo" src={app.icon} alt=""/>
+                    {#if app.iconData}
+                        <span class="app-logo symbol-logo" aria-hidden="true"><Icon icon={app.iconData} width={28} height={28} /></span>
+                    {:else}
+                        <img class="app-logo" src={app.icon} alt=""/>
+                    {/if}
                     <div class="app-name">{app.name}</div>
                 </div>
             {/each}
@@ -156,6 +160,12 @@
             font-size: 16px;
             text-align: center;
     	}
+
+        .symbol-logo {
+            display: grid;
+            place-items: center;
+            color: var(--color-text-primary);
+        }
 
     	.app-logo{
             height: 48px;

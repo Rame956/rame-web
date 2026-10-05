@@ -6,12 +6,14 @@ import welcomeFileEn from '$lib/files/text_files/Welcome_en.md?raw';
 import type { Component } from 'svelte';
 import Minesweeper from '$lib/apps/minesweeper.svelte';
 import MemeGenerator from '$lib/apps/memegenerator.svelte';
+import { paletteIcon } from '$lib/assets/palette-icon';
 
 export type App = {
     id: string;
     name: string;
     title: string;
     icon?: string;
+    iconData?: { body: string; width: number; height: number };
     description: string;
     component: Component<any>;
     width: number;
@@ -25,7 +27,7 @@ export function appsList(locale: "ru" | "en"): App[] {
       id: "memegenerator",
       name: "Meme Studio",
       title: "Meme Studio",
-      icon: '/icons/memeicon.svg',
+      iconData: paletteIcon,
       description: locale === 'ru' ? 'Мемы из картинок и GIF' : 'Image and GIF meme generator',
       component: MemeGenerator,
       width: 1000,
